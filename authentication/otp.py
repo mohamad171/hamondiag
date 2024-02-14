@@ -10,13 +10,11 @@ def send_otp_thread(user):
     # send otp to user
     try :
         params = {
-            "sender":"1000011000101",
             "receptor": user.mobile,
-            "message" : f"""
-            کد ورود شما به هامون دیاگ { user.otp }می باشد 
-            """
+            "token" : user.otp,
+            "template":454
         }
-        api.sms_send(params)
+        api.verify_lookup(params)
     except :
         pass
     sleep(120)
