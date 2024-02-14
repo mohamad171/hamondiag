@@ -29,7 +29,7 @@ class PostInfo(models.Model):
     mobile_2 = models.PositiveBigIntegerField()
     state = OstanField()
     city = ShahrField()
-    # code_post = models.PositiveIntegerField()
+    code_post = models.CharField(max_length=10)
     address = models.TextField()
     post_method = models.CharField(max_length=15,choices=posts_method,default="noramal")
     is_ok = models.BooleanField(default=False)

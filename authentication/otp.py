@@ -5,22 +5,27 @@ from time import sleep
 from random import randint
 from kavenegar import *
 from django.conf import settings
+
 api = KavenegarAPI(settings.KAVENEGAR_API_KEY)
+
+
 def send_otp_thread(user):
     # send otp to user
-    try :
+    try:
         params = {
             "receptor": user.mobile,
-            "token" : user.otp,
-            "template":454
+            "token": user.otp,
+            "template": "verification"
         }
         api.verify_lookup(params)
-    except :
+    except:
         pass
     sleep(120)
-    if user.is_active :
+    if user.is_active:
         user.otp = None
         user.save()
+
+
 def send_otp(user):
-    task = Thread(target=send_otp_thread,args=[user])
+    task = Thread(target=send_otp_thread, args=[user])
     task.start()
