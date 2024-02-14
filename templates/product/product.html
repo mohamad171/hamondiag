@@ -41,7 +41,12 @@
                         {% endif %}
                     </h4>
                     <h6 class="text-muted"> {{ product.description }}</h6>
+                {% if product.count_buy > 0 %}
                     <a href="{% url 'product:product' product.slug 'add' %}" class="btn btn-outline-danger">افزودن به سبد خرید</a>
+                    <p>موجودی:{{ product.count_buy }}</p>
+                {% else %}
+                    <p>این محصول موجود نیست</p>
+                {% endif %}
                     {% if request.user.is_staff %}
                         <a href="{% url 'product:delete-product' product.slug %}" class="btn btn-outline-danger">حذف</a>
                     {% endif %}

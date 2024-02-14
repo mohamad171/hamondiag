@@ -31,12 +31,11 @@ class VerifyForm(forms.Form):
 class PostInfoForm(forms.ModelForm):
     class Meta :
         model = PostInfo
-        fields = ["name","mobile","mobile_2","code_post","state","city","address"]
+        fields = ["name","mobile","mobile_2","state","city","address"]
         labels = {
             "name" :"نام و نام خانوادگی",
             "mobile":"شماره",
             "mobile_2":"شماره اضطراری",
-            "code_post":"کد پستی",
             "state":"استان",
             "city" :"شهر",
             "address":"ادرس",
