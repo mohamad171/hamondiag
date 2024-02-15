@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% load static %}
 {% block title %}
     اطلاعات پستی
 {% endblock %}
@@ -12,7 +13,26 @@
                     {% for field in form %}
                         <div class="my-1 row p-3">
                         <label class="col-12 h5 text-secondary">{{ field.label }}</label>
+                        {% if field.name == "state" or field.name == "city" %}
+
+                            {% if field.name == "state" %}
+                                <select name="state" class="form-control col-12" id="state">
+                                    <option selected disabled>انتخاب کنید</option>
+                                    {% for choice in field.field.choices.queryset %}
+                                        <option {% if field.value == choice.pk %} selected {% endif %} value="{{ choice.pk }}">{{ choice.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            {% else %}
+                                <select name="city" class="form-control col-12" id="city">
+                                    <option selected disabled>انتخاب کنید</option>
+                                    {% for choice in field.field.choices.queryset %}
+                                        <option value="{{ choice.pk }}" {% if field.value == choice.pk %} selected {% endif %} class="{{ choice.ostan.id }}" data-chained="{{ choice.ostan.id }}">{{ choice.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            {% endif %}
+                        {% else %}
                         {% render_field field class="form-control col-12" %}
+                        {% endif %}
                         </div>
                     {% endfor %}
                     <div>
@@ -21,4 +41,13 @@
                 </form>
             </div>
     </div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'jquery.chained.js' %}"></script>
+<script>
+$(document).ready(function () {
+            $("#city").chained("#state");
+        });
+</script>
 {% endblock %}
