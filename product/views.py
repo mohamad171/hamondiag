@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render,redirect
 from django.views.generic.base import View
 from django.urls import reverse_lazy
@@ -11,6 +12,10 @@ class MainView(View):
         category = request.GET.get("c")
         discount = request.GET.get("d")
         products = Product.objects.all().order_by("-created")
+
+        if "search" in request.GET:
+            s = request.GET.get("search")
+            products = products.filter(Q(name__contains=s) | Q(description__contains=s) )
         discounts = Product.objects.filter(discount__gt=0)
         if category :
             try :
