@@ -79,6 +79,7 @@ class AddProductView(View):
         product = None
         cart = None
         cart_product = None
+        count = request.GET.get("count",1)
         try :
             product = Product.objects.get(slug=slug)
             if not product.price :
@@ -93,10 +94,11 @@ class AddProductView(View):
         try :
             cart_product = cart.cart_products.get(product=product)
         except :
-            cart_product = CartProduct.objects.create(product=product,cart=cart)
+            cart_product = CartProduct.objects.create(product=product,cart=cart,count=int(count))
         if mode == "add" :
-            cart_product.count += 1
-            cart_product.save()
+            if cart_product.count < cart_product.product.count_buy:
+                cart_product.count += 1
+                cart_product.save()
         if mode == "remove" :
             if cart_product.count == 1 :
                 cart_product.delete()
