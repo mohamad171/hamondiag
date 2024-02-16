@@ -14,7 +14,7 @@
                        <div class="col-12 col-md-6">
                         <div class="card m-1">
                             <div class="card-body">
-                                {% thumbnail blog.picture "300x250" crop="center" as img %}
+                                {% thumbnail blog.picture "300x250"  as img %}
                                 <img src="{{ img.url }}" class="card-img">
                                 {% endthumbnail %}
                                 <a href="{% url 'blog' blog.slug %}" class="text-decoration-none">

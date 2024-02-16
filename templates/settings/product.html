@@ -45,7 +45,7 @@
             <div class="card-body">
                 {% for obj in product.images.all %}
                     <div class="shadow my-2 d-flex justify-content-between">
-                    {% thumbnail obj.image "200x150" crop="center" quality=100 as img %}
+                    {% thumbnail obj.image "200x150"  quality=100 as img %}
                         <img src="{{ img.url }}" class="img-fluid rounded-3">
                     {% endthumbnail %}
                     <div class="d-flex align-items-center p-2">

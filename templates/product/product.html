@@ -11,7 +11,7 @@
             <div class="card m-auto p-3">
             <div class="row">
                 <div class="col-12 col-md-6 align-items-center d-flex">
-                    {% thumbnail product.image "300x200" crop="center" as img %}
+                    {% thumbnail product.image "300x200"  as img %}
                     <img src="{{ img.url }}" class="img-responsive w-100 rounded-3">
                     {% endthumbnail %}
                 </div>
@@ -20,7 +20,7 @@
                         <div class="row">
                             {% for obj in product.images.all %}
                             <div class="col-6 my-1">
-                            {% thumbnail obj.image "200x150" crop="center" quality=100 as img %}
+                            {% thumbnail obj.image "200x150"  quality=100 as img %}
                             <img src="{{ img.url }}" class="w-100 rounded-2">
                             {% endthumbnail %}
                             </div>
@@ -67,7 +67,7 @@
                     {% for product in similar_products %}
                     <div class="col-lg-4 col-12 col-sm-6 ">
                     <div class="{% if product.discount  %}discount{% endif %} card m-2 shadow rounded-3 p-2 product">
-                        {% thumbnail product.image "250x200" crop="center" as img %}
+                        {% thumbnail product.image "250x200"  as img %}
                             <img class="img-responsive w-100 rounded-3" src="{{ img.url }}">
                             {% endthumbnail %}
                         <h4>{{ product.name |name_cut }}</h4>

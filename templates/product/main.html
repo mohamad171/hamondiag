@@ -16,7 +16,7 @@
            <div class="carousel-inner">
                {% for poster in settings.posters.all %}
                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                   {% thumbnail poster.img "1340x500" quality=100 crop="center" as img %}
+                   {% thumbnail poster.img "1340x500" quality=100  as img %}
                    <img src="{{ img.url }}" class="img-fluid w-100 my-3 rounded-3 slide-{{ forloop.counter }} slide poster">
                    {% endthumbnail %}
                    </div>
@@ -65,7 +65,7 @@
                             {{ product.discount }}درصد تخفیف
                         </div>
                         {% endif %}
-                        {% thumbnail product.image "250x200" crop="center" as img %}
+                        {% thumbnail product.image "250x200" as img %}
                             <img class="img-responsive w-100 rounded-3" src="{{ img.url }}">
                             {% endthumbnail %}
                         <h4 class="small">{{ product.name |name_cut }}</h4>
@@ -88,7 +88,7 @@
                             {{ product.discount }}درصد تخفیف
                         </div>
                         {% endif %}
-                        {% thumbnail product.image "250x200" crop="center" as img %}
+                        {% thumbnail product.image "250x200"  as img %}
                             <img class="img-responsive w-100 rounded-3" src="{{ img.url }}">
                             {% endthumbnail %}
                         <h4>{{ product.name |name_cut }}</h4>

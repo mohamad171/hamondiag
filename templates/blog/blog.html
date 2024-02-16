@@ -9,7 +9,7 @@
     <div class="col-12 col-md-8">
         <div class="card my-md-5 my-3">
             <div class="card-body">
-                {% thumbnail blog.picture "500x400" crop="center" as img %}
+                {% thumbnail blog.picture "500x400"  as img %}
                 <img src="{{ img.url }}" class="img-fluid w-100 rounded">
                 {% endthumbnail %}
                        {{ blog.content|safe }}
