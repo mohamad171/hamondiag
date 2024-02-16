@@ -23,32 +23,28 @@ class BlogContent(View):
     blog = None
     last_blogs =None
     model = None
+    form = None
     def get(self,request,slug):
+
         try :
             self.blog = Blog.objects.get(slug=slug)
+            self.form = BlogForm(instance=self.blog)
         except Blog.DoesNotExist:
             pass
         self.last_blogs = Blog.objects.all().order_by("-created")[0:5]
-        for content in self.blog.contents.all():
-            pass
 
-        return render(request,"blog/edit-blog.html",{"textform":"form1","pictureform":"form2"
+        return render(request,"blog/edit-blog.html",{"form":self.form
                       ,"blog":self.blog,"last_blogs":self.last_blogs})
-    # def post(self,request,slug):
-    #     form1 = TextContentForm(data=request.POST)
-    #     form2 = PicturContentForm(request.POST,request.FILES)
-    #     if form1.is_valid():
-    #         obj = form1.save()
-    #         content = Content.objects.create(content_object=obj,blog_id=
-    #                 Blog.objects.get(slug=slug).id)
-    #         return redirect("edit-blog",slug)
-    #     if form2.is_valid():
-    #         obj = form2.save()
-    #         content = Content.objects.create(content_object=obj, blog_id=
-    #         Blog.objects.get(slug=slug).id)
-    #         return redirect("edit-blog", slug)
-    #     return render(request,"blog/edit-blog.html",{"textform":form1,"pictureform":form2
-    #                   ,"blog":self.blog,"last_blogs":self.last_blogs})
+    def post(self,request,slug):
+        try :
+            self.blog = Blog.objects.get(slug=slug)
+            self.form = BlogForm(request.POST, request.FILES,instance=self.blog)
+        except Blog.DoesNotExist:
+            pass
+        if self.blog:
+            if self.form.is_valid():
+                object = self.form.save()
+                return redirect("edit-blog", object.slug)
 
 class BlogListView(ListView):
     template_name = "blog/blogs.html"
@@ -57,13 +53,7 @@ class BlogListView(ListView):
         context = super().get_context_data(**kwargs)
         context["last_blogs"] = Blog.objects.all().order_by("-created")[0:5]
         return context
-class BlogDetailView(DetailView):
-    template_name = "blog/blog.html"
-    model = Blog
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["last_blogs"] = Blog.objects.all().order_by("-created")[0:5]
-        return context
+
 class BlogDetailView(View):
     def get(self,request,slug):
         blog = Blog.objects.get(slug=slug)
