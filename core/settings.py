@@ -17,7 +17,8 @@ from django.conf.global_settings import STATICFILES_DIRS
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+CSRF_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = ["https://hamondiag.moderndata.ir"]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 CORS_ALLOW_ALL_ORIGINS = True
