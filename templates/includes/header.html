@@ -89,6 +89,11 @@
                     </a>
                 </li>
                 {% endif %}
+        <li>
+                        <form class="form-inline">
+                            <input class="form-control" type="search" value="{{ request.GET.search }}" name="search" placeholder="جستجو..." aria-label="Search">
+                        </form>
+                </li>
         </ul>
     </section>
 </header>
