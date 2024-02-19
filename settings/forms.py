@@ -4,7 +4,7 @@ from settings.models import Settings,Poster
 class ProductForm(forms.ModelForm):
     class Meta :
         model = Product
-        fields = ["name","price","discount","image","category","tags","description"]
+        fields = ["name","price","discount","count_buy","image","category","tags","description"]
 class CategoryForm(forms.ModelForm):
     class Meta :
         model = Category
