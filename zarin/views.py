@@ -14,7 +14,7 @@ ZP_API_STARTPAY = f"https://{sandbox}.zarinpal.com/pg/StartPay/"
 description = "توضیحات مربوط به تراکنش را در این قسمت وارد کنید"  # Required
 phone = 'YOUR_PHONE_NUMBER'  # Optional
 # Important: need to edit for realy server.
-CallbackURL = 'http://127.0.0.1:8000/zarin/verify/'
+CallbackURL = 'https://hamondiag.ir/zarin/verify/'
 
 
 def request_payment(request):
@@ -63,7 +63,7 @@ def verify(request):
         response = response.json()
         if response['Status'] == 100:
             for cart_product in cart.cart_products.all():
-                cart_product.product.count_buy += 1
+                cart_product.product.count_buy -= cart_product.count
                 cart_product.product.save()
             cart.is_paid = True
             cart.is_open= False

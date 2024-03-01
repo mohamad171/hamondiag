@@ -35,9 +35,9 @@
                <button id="btn-category" class="hide btn btn-outline-secondary">دسته بندی ها</button>
                 <nav class="card-body p-0 my-1">
                     <nav class="row  list-unstyled list-group m-1 list-group-horizontal justify-content-center" id="categorys">
-                        <a href="?d=true" class="text-decoration-none col-md-2 btn-outline-secondary my-1 text-center btn col-12">تخفیف ها</a>
+                        <button onclick="SetParamUrl('d','true')" class="text-decoration-none col-md-2 btn-outline-secondary my-1 text-center btn col-12">تخفیف ها</button>
                     {% for category in categorys %}
-                        <a href="?c={{ category.slug }}" class="text-decoration-none m-1 col-12 col-md-2 text-center btn btn-outline-secondary">{{ category.name }}</a>
+                        <button onclick="SetParamUrl('c','{{ category.slug }}')" class="text-decoration-none m-1 col-12 col-md-2 text-center btn btn-outline-secondary">{{ category.name }}</button>
                     {% endfor %}
                     </nav>
                 </nav>
@@ -117,12 +117,36 @@
     <div class="container text-center">
     <div class="btn-group  w-50 m-auto my-3">
         {% if products.has_previous %}
-        <a class="btn btn-outline-danger" href="?p={{ products.previous_page_number }}">قبلی</a>
+
+                <button class="btn btn-outline-danger" onclick="SetParamUrl('p','{{ products.previous_page_number }}')">قبلی</button>
+
     {% endif %}
-    <a class="btn btn-outline-danger" href="?p={{ products.number }}">{{ products.number }}</a>
+        <button class="btn btn-outline-danger" onclick="SetParamUrl('p','{{ products.number }}')">{{ products.number }}</button>
     {% if products.has_next %}
-        <a class="btn btn-outline-danger" href="?p={{ products.next_page_number }}">بعدی</a>
+                <button class="btn btn-outline-danger" onclick="SetParamUrl('p','{{ products.next_page_number }}')">بعدی</button>
     {% endif %}
     </div>
     </div>
+{% endblock %}
+
+{% block script %}
+<script>
+var SetParamUrl = function(_k, _v,reload=true) {// replace and add new parameters
+
+            let arrParams = window.location.search !== '' ? decodeURIComponent(window.location.search.substr(1)).split('&').map(_v => _v.split('=')) : Array();
+            let index = arrParams.findIndex((_v) => _v[0] === _k);
+            index = index !== -1 ? index : arrParams.length;
+            _v === null ? arrParams = arrParams.filter((_v, _i) => _i != index) : arrParams[index] = [_k, _v];
+            let _search = arrParams.map(_v => _v.join('=')).join('&');
+
+            let newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + (arrParams.length > 0 ? '?' +  _search : '');
+            if(reload){
+                window.location = newurl;
+            }else{
+                if (history.pushState) {
+                    window.history.pushState({path:newurl}, null, newurl);
+                }
+            }
+        };
+</script>
 {% endblock %}
