@@ -1,5 +1,6 @@
 from django.contrib import admin
-from product.models import Product,Image,Tag,Category,Cart,CartProduct
+from product.models import Product,Image,Tag,Category,Cart,CartProduct,MeasureType
+admin.site.register(MeasureType)
 admin.site.register(Product)
 admin.site.register(Tag)
 admin.site.register(Category)

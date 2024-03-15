@@ -12,7 +12,7 @@ class MainView(View):
         category = request.GET.get("c")
         discount = request.GET.get("d")
         products = Product.objects.all().order_by("-created")
-
+        request.session["last_path"] = request.get_full_path()
         if "search" in request.GET:
             s = request.GET.get("search")
             products = products.filter(Q(name__contains=s) | Q(description__contains=s) )
@@ -43,6 +43,7 @@ class ProductDetailView(DetailView):
     model = Product
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
+        self.request.session["last_path"] = self.request.get_full_path()
         tags = self.object.tags.all()
         similar_products = []
         for tag in tags :

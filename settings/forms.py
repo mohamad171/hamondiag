@@ -1,35 +1,48 @@
 from django import forms
-from product.models import Product,Category,Tag,Image
-from settings.models import Settings,Poster
+from product.models import Product, Category, Tag, Image
+from settings.models import Settings, Poster
+
+
 class ProductForm(forms.ModelForm):
-    class Meta :
+    class Meta:
         model = Product
-        fields = ["name","price","discount","count_buy","image","category","tags","description"]
+        fields = ["name", "price", "discount", "count_buy", "image", "measure_type", "category", "tags", "description"]
+
+
 class CategoryForm(forms.ModelForm):
-    class Meta :
+    class Meta:
         model = Category
         fields = ["name"]
+
+
 class TagFrom(forms.ModelForm):
-    class Meta :
+    class Meta:
         model = Tag
         fields = ["name"]
+
+
 class SettingsForm(forms.ModelForm):
-    class Meta :
+    class Meta:
         model = Settings
-        fields = ["name","phone","email","address","about"]
+        fields = ["name", "phone", "email", "address", "about"]
         labels = {
-            "name":"نام",
-            "phone" : "شماره",
-            "address":"آدرس",
-            "email":"ایمیل",
-            "about":"درباره"
+            "name": "نام",
+            "phone": "شماره",
+            "address": "آدرس",
+            "email": "ایمیل",
+            "about": "درباره"
         }
+
+
 class PosterForm(forms.ModelForm):
-    class Meta :
+    class Meta:
         model = Poster
         fields = ["img"]
+
+
 class ImageForm(forms.ModelForm):
     is_save = forms.BooleanField()
-    class Meta :
+
+    class Meta:
         model = Image
-        fields = ["image","is_save"]
+        fields = ["image", "is_save"]

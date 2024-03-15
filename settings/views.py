@@ -51,12 +51,11 @@ class UpdateProduct(TemplateResponseMixin,View):
     def post(self,request,slug):
         form = ProductForm(request.POST,request.FILES,instance=self.product)
         add_image_form = ImageForm(request.POST,request.FILES)
-        print(add_image_form.is_valid())
-        print(form.is_valid())
+        path = request.session.get("last_path","/")
         if form.is_valid() and not add_image_form.is_valid():
-            print("form 1")
             form.save()
-            return redirect("settings:product-update",self.product.slug)
+            return redirect(path)
+            # return redirect("settings:product-update",self.product.slug)
         if add_image_form.is_valid() :
             obj = add_image_form.save(commit=False)
             obj.product = self.product
@@ -64,7 +63,8 @@ class UpdateProduct(TemplateResponseMixin,View):
                 obj.save()
             else :
                 warning(request,"شما ۴ تصویر برای این محصول دارید ")
-            return redirect("settings:product-update",self.product.slug)
+            return redirect(path)
+            # return redirect("settings:product-update",self.product.slug)
 class DeleteImgsProduct(View):
     def get(self,request,pk):
         try :

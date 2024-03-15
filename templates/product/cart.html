@@ -36,7 +36,7 @@
                    <small>{{ pack.product.name |name_title }}</small>
                </td>
                <td role="col" class="text-center col p-2 small">
-                   <small>{{ pack.count }}</small>
+                   <small>{{ pack.count }} {% if pack.product.measure_type %}{{ pack.product.measure_type.name }} {% else %}عدد{% endif %}</small>
                </td>
                <td role="col" class="text-center col p-2 small">
                    <small>{{ pack.product |discount_price |intcomma }}</small>

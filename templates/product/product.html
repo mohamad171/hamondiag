@@ -42,7 +42,7 @@
                     </h4>
                     <h6 class="text-muted"> {{ product.description }}</h6>
                 {% if product.count_buy > 0 %}
-                                        <p>{{ product.count_buy }} عدد موجود است</p>
+                                        <p>{{ product.count_buy }} {% if product.measure_type %}{{ product.measure_type.name }} {% else %}عدد{% endif %} موجود است</p>
                     <form action="{% url 'product:product' product.slug 'create' %}">
                         {% csrf_token %}
                         <div style="margin-bottom: 2%;">
